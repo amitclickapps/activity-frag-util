@@ -39,7 +39,7 @@ FragmentManager.with(this,R.id.replaceId)
                         .build();
 ```
 #### Extend `BaseAppCompatActivity`
-##### If Connectivity Changes automatic notified under `OnConnectivityChanges`
+##### If Connectivity Changes automatic notified under `OnConnectivityChanges` but for this need to add `BaseApplication` in your manifest
 
 ```
 public class SampleActivity extends BaseAppCompatActivity{
@@ -61,6 +61,14 @@ public class SampleActivity extends BaseAppCompatActivity{
 ```
  enableOnActivityResultFragment(true) 
 ```
+#### Update Locale
+#### 1. Context
+#### 2. LanguageCode
+#### 3. Enable/Disable BroadCast for reflecting in whole application
+```
+ LanguageContextWrapper.wrap(this, "en", true);
+```
+
 Download
 --------
 Add the JitPack repository to your root build.gradle:

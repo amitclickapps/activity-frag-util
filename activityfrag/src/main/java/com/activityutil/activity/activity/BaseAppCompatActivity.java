@@ -1,5 +1,6 @@
 package com.activityutil.activity.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.activityutil.activity.broadcast.LanguageBroadCastReceiver;
 import com.activityutil.activity.fragment.BaseFragment;
 import com.activityutil.activity.interfaces.ConnectivityListener;
 import com.activityutil.activity.interfaces.OnBackHandler;
+
+import java.util.Locale;
 
 
 /**
@@ -35,7 +38,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
 
     private LanguageBroadCastReceiver languageBroadCastReceiver;
     private IntentFilter filter = new IntentFilter(Constants.getActionBroadcastLanguageChanged());
-
 
 //
 
@@ -62,6 +64,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         initUI();
         languageBroadCastReceiver = new LanguageBroadCastReceiver(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(languageBroadCastReceiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(languageBroadCastReceiver);
     }
 
     @Override
@@ -144,5 +152,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
     @Override
     public void onConnectivityChange(boolean isConnectivity) {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().getLanguage()));
     }
 }
