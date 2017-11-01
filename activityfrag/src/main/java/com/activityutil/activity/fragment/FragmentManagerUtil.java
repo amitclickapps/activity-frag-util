@@ -172,5 +172,5 @@ public class FragmentManagerUtil {
             return null;
         return activity.getFragmentManager().findFragmentByTag(tag);
     }
-}
 
+}
